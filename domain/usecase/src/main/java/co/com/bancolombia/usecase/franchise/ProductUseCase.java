@@ -18,7 +18,7 @@ public class ProductUseCase {
     public Mono<Boolean> deleteProduct(Integer productId){
         return productRepository.deleteProduct(productId);
     }
-    public Mono<Boolean> setStock(Product product, Integer productId){
-        return productRepository.setStock(product, productId);
+    public Mono<Product> updateProduct(Product product, Integer productId){
+        return productRepository.updateProduct(product, productId);
     }
 }

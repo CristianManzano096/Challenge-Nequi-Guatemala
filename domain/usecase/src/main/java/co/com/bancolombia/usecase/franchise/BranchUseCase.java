@@ -16,4 +16,8 @@ public class BranchUseCase {
     public Mono<Branch> createBranch(Branch branch){
         return branchRepository.createBranchWithFranchise(branch);
     }
+
+    public Mono<Branch>updateFranchise(Branch branch, Integer id){
+        return branchRepository.updateBranch(branch, id);
+    }
 }

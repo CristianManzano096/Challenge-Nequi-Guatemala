@@ -8,6 +8,6 @@ import reactor.core.publisher.Mono;
 public interface ProductRepository {
     Mono<Product> createProductWithBranch(Product product);
     Mono<Boolean> deleteProduct(Integer productId);
-    Mono<Boolean> setStock(Product product, Integer productId);
+    Mono<Product> updateProduct(Product product, Integer productId);
     Flux<Product> getAll();
 }

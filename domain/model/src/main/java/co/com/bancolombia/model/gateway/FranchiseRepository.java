@@ -9,5 +9,7 @@ import reactor.core.publisher.Mono;
 public interface FranchiseRepository {
     Mono<Franchise> create(Franchise franchise);
     Flux<Franchise> getAll();
-    Flux<Branch> getMaxProductByBranch(Integer id);
+    Mono<Franchise> getMaxProductByBranch(Integer id);
+
+    Mono<Franchise> updateFranchise(Franchise franchise, Integer id);
 }

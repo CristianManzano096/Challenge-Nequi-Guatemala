@@ -17,11 +17,15 @@ public class FranchiseUseCase {
         return franchiseRepository.getAll();
     }
 
-    public Flux<Branch> getMaxProductByBranch(Integer id) {
+    public Mono<Franchise> getMaxProductByBranch(Integer id) {
         return franchiseRepository.getMaxProductByBranch(id);
     }
 
     public Mono<Franchise> createFranchise(Franchise franchise){
         return franchiseRepository.create(franchise);
+    }
+
+    public Mono<Franchise> updateFranchise(Franchise franchise, Integer id){
+        return franchiseRepository.updateFranchise(franchise, id);
     }
 }

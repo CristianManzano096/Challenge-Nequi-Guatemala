@@ -13,6 +13,8 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Table("franchise")
 public class FranchiseEntity {

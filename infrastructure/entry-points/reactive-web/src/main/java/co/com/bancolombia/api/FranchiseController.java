@@ -6,6 +6,7 @@ import co.com.bancolombia.usecase.franchise.FranchiseUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,16 +25,16 @@ public class FranchiseController {
     public Flux<Franchise> getFranchise() {
         return franchiseUseCase.getAllFranchisesWithBranches();
     }
-
     @PostMapping(path = "/franchise")
     public Mono<Franchise> addFranchise(@RequestBody Franchise franchise) {
-        System.out.println("*******"+franchise.getName());
         return franchiseUseCase.createFranchise(franchise);
     }
-
     @GetMapping(path = "/franchise/{id}")
-    public Flux<Branch> getMaxProducts(@PathVariable("id") Integer id) {
-        System.out.println("*******"+id);
+    public Mono<Franchise> getMaxProducts(@PathVariable("id") Integer id) {
         return franchiseUseCase.getMaxProductByBranch(id);
+    }
+    @PatchMapping(path = "/franchise/{id}")
+    public Mono<Franchise> updateFranchise(@RequestBody Franchise franchise, @PathVariable("id") Integer franchiseId) {
+        return franchiseUseCase.updateFranchise(franchise, franchiseId);
     }
 }

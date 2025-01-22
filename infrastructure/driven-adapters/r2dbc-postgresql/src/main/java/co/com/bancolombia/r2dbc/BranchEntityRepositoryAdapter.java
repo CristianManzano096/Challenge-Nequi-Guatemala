@@ -1,27 +1,40 @@
 package co.com.bancolombia.r2dbc;
 
 import co.com.bancolombia.model.Branch;
+import co.com.bancolombia.model.Franchise;
 import co.com.bancolombia.model.gateway.BranchRepository;
 import co.com.bancolombia.r2dbc.domain.BranchEntity;
+import co.com.bancolombia.r2dbc.mapper.BranchMapper;
+import co.com.bancolombia.r2dbc.mapper.FranchiseMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
+
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
 public class BranchEntityRepositoryAdapter implements BranchRepository {
 
     private final BranchEntityRepository branchEntityRepository;
+    private final BranchMapper mapper;
+
     @Override
     public Mono<Branch> createBranchWithFranchise(Branch branch) {
-        return branchEntityRepository.save(BranchEntity.builder()
-                .franchiseId(branch.getFranchiseId())
-                .name(branch.getName())
-                .build()
-                ).map(branchEntity -> Branch.builder()
-                .id(branchEntity.getId())
-                .name(branchEntity.getName())
-                .franchiseId(branchEntity.getFranchiseId())
-                .build());
+        return Mono.just(branch)
+            .map(mapper::branchToBranchEntity)
+            .flatMap(branchEntityRepository::save)
+            .map(mapper::branchEntityToBranch);
+    }
+
+    @Override
+    public Mono<Branch> updateBranch(Branch branch, Integer id) {
+        return Mono.just(id)
+                .flatMap(branchEntityRepository::findById)
+                .switchIfEmpty(Mono.error(new RuntimeException("Branch not found for id: " + id)))
+                .flatMap(branchEntity -> {
+                    Optional.ofNullable(branch.getName()).ifPresent(branchEntity::setName);
+                    return branchEntityRepository.save(branchEntity);
+                }).map(mapper::branchEntityToBranch);
     }
 }

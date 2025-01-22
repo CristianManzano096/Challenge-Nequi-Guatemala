@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -27,13 +28,13 @@ public class ProductController {
     }
 
     @PostMapping(path = "/product")
-    public Mono<Product> addFranchise(@RequestBody Product product) {
+    public Mono<Product> addProduct(@RequestBody Product product) {
         return productUseCase.createProduct(product);
     }
 
-    @PutMapping(path = "/product/{productId}")
-    public Mono<Boolean> setStock(@RequestBody Product product, @PathVariable("productId") Integer productId) {
-        return productUseCase.setStock(product, productId);
+    @PatchMapping(path = "/product/{productId}")
+    public Mono<Product> updateProduct(@RequestBody Product product, @PathVariable("productId") Integer productId) {
+        return productUseCase.updateProduct(product, productId);
     }
 
 }

@@ -6,4 +6,5 @@ import reactor.core.publisher.Mono;
 
 public interface BranchRepository {
     Mono<Branch> createBranchWithFranchise(Branch branch);
+    Mono<Branch> updateBranch(Branch branch,Integer id);
 }
