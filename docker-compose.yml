@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  app:
+    image: nequic
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_R2DBC_URL: r2dbc:postgresql://my-postgres:5432/postgres
+      SPRING_R2DBC_USERNAME: postgres
+      SPRING_R2DBC_PASSWORD: s3cret
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    container_name: postgres  # Cambié el nombre aquí para que coincida
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: s3cret
+
+volumes:
+  pgdata:

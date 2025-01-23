@@ -1,9 +1,8 @@
 package co.com.bancolombia.api;
 import co.com.bancolombia.api.handler.ResponseHandler;
 import co.com.bancolombia.model.Branch;
-import co.com.bancolombia.model.Franchise;
 import co.com.bancolombia.model.enums.ResponseCode;
-import co.com.bancolombia.usecase.franchise.BranchUseCase;
+import co.com.bancolombia.usecase.BranchUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

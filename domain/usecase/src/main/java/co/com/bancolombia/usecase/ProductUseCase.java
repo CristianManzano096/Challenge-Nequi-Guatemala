@@ -1,4 +1,4 @@
-package co.com.bancolombia.usecase.franchise;
+package co.com.bancolombia.usecase;
 
 import co.com.bancolombia.model.Branch;
 import co.com.bancolombia.model.Product;
