@@ -2,6 +2,8 @@ package co.com.bancolombia.r2dbc;
 
 import co.com.bancolombia.model.Branch;
 import co.com.bancolombia.model.Franchise;
+import co.com.bancolombia.model.enums.ResponseCode;
+import co.com.bancolombia.model.exception.CustomException;
 import co.com.bancolombia.model.gateway.BranchRepository;
 import co.com.bancolombia.r2dbc.domain.BranchEntity;
 import co.com.bancolombia.r2dbc.mapper.BranchMapper;
@@ -24,17 +26,19 @@ public class BranchEntityRepositoryAdapter implements BranchRepository {
         return Mono.just(branch)
             .map(mapper::branchToBranchEntity)
             .flatMap(branchEntityRepository::save)
-            .map(mapper::branchEntityToBranch);
+            .map(mapper::branchEntityToBranch)
+            .onErrorMap(e -> new CustomException(ResponseCode.DATABASE_ERROR, "Error creating branch: " + e.getMessage()));
     }
 
     @Override
     public Mono<Branch> updateBranch(Branch branch, Integer id) {
         return Mono.just(id)
                 .flatMap(branchEntityRepository::findById)
-                .switchIfEmpty(Mono.error(new RuntimeException("Branch not found for id: " + id)))
+                .switchIfEmpty(Mono.error(new CustomException(ResponseCode.NOT_FOUND,"No branch found for id: "+id)))
                 .flatMap(branchEntity -> {
                     Optional.ofNullable(branch.getName()).ifPresent(branchEntity::setName);
                     return branchEntityRepository.save(branchEntity);
-                }).map(mapper::branchEntityToBranch);
+                }).map(mapper::branchEntityToBranch)
+                .onErrorMap(e -> new CustomException(ResponseCode.DATABASE_ERROR, "Error updating branch: " + e.getMessage()));
     }
 }

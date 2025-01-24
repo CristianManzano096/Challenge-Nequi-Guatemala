@@ -24,12 +24,12 @@ public class BranchController {
     private final BranchUseCase branchUseCase;
 
     @PostMapping(path = "/branch")
-    public Mono<ResponseEntity<Map<String, Object>>> addFranchise(@RequestBody Branch branch) {
+    public Mono<ResponseEntity<Map<String, Object>>> addBranch(@RequestBody Branch branch) {
         return branchUseCase.createBranch(branch)
                 .flatMap(branchResponse -> ResponseHandler.success(branchResponse, ResponseCode.SUCCESS));
     }
     @PatchMapping(path = "/branch/{id}")
-    public Mono<ResponseEntity<Map<String, Object>>> updateFranchise(@RequestBody Branch branch, @PathVariable("id") Integer branchId) {
+    public Mono<ResponseEntity<Map<String, Object>>> updateBranch(@RequestBody Branch branch, @PathVariable("id") Integer branchId) {
         return branchUseCase.updateFranchise(branch, branchId)
                 .flatMap(branchResponse -> ResponseHandler.success(branchResponse, ResponseCode.SUCCESS));
     }

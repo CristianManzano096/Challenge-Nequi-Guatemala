@@ -35,4 +35,18 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(errorResponse);
     }
+
+
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Map<String, String>> handleIllegalArgumentExceptionException(Exception ex) {
+        log.error(ex.getMessage());
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("code", "DATABASE_ERROR");
+        errorResponse.put("message", "A data integrity violation occurred. Please check your input.");
+
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(errorResponse);
+    }
 }

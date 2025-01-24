@@ -30,7 +30,4 @@ public class ProductEntity {
     @Column("branch_id")
     private Integer branchId;
 
-    @Transient
-    private BranchEntity branch;
-
 }

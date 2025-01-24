@@ -25,4 +25,11 @@ public class ResponseHandler {
 
         return Mono.just(ResponseEntity.status(status).body(response));
     }
+
+    public static Map<String, Object> successResponse(Object data, ResponseCode code) {
+        return Map.of(
+                "data", data,
+                "code", code.getCode()
+        );
+    }
 }
