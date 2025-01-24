@@ -28,7 +28,7 @@ adapters:
     host: ${DB_HOST:localhost}
     port: ${DB_PORT:5432}
     database: ${DB_NAME:postgres}
-    schema: public
+    schema: ${DB_SCHEMA:public}
     username: ${DB_USER:postgres}
     password: ${DB_PASSWORD:s3cret}
 
