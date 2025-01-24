@@ -25,12 +25,12 @@ cors:
 
 adapters:
   r2dbc:
-    host: postgres  # Cambié el nombre aquí también
-    port: 5432
-    database: postgres
+    host: ${DB_HOST:localhost}
+    port: ${DB_PORT:5432}
+    database: ${DB_NAME:postgres}
     schema: public
-    username: postgres
-    password: s3cret
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:s3cret}
 
 logging:
   level:

@@ -9,15 +9,17 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SPRING_R2DBC_URL: r2dbc:postgresql://my-postgres:5432/postgres
-      SPRING_R2DBC_USERNAME: postgres
-      SPRING_R2DBC_PASSWORD: s3cret
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: postgres
+      DB_USER: postgres
+      DB_PASSWORD: s3cret
     depends_on:
       - db
 
   db:
     image: postgres
-    container_name: postgres  # Cambié el nombre aquí para que coincida
+    container_name: postgres
     ports:
       - 5432:5432
     environment:
