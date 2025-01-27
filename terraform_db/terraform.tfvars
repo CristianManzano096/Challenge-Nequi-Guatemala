@@ -1,0 +1,7 @@
+aws_region     = "us-east-1"
+aws_access_key = ""
+aws_secret_key = ""
+db_name        = "nequichallenge"
+db_username    = "pguser"
+db_password    = "SecurePassword123"
+environment    = "development"
