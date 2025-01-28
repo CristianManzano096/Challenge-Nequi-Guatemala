@@ -16,7 +16,6 @@ resource "aws_db_instance" "small_postgres_database" {
   skip_final_snapshot = true
 
   tags = {
-
     Environment = var.environment
   }
 }
